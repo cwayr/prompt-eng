@@ -119,7 +119,7 @@ def model_req(payload=None):
     if api_key: headers["Authorization"] = f"Bearer {api_key}"
 
     #print(url, headers)
-    print(payload)
+    #print(payload)
 
     # Send out request to Model Provider
     try:
@@ -160,16 +160,32 @@ def model_req(payload=None):
 
 if __name__ == "__main__":
     from _pipeline import create_payload, model_req
-    MESSAGE = "1 + 1"
-    PROMPT = MESSAGE 
-    payload = create_payload(
-                         target="open-webui",   
-                         model="llama3.2:latest", 
-                         prompt=PROMPT, 
-                         temperature=1.0, 
-                         num_ctx=5555555, 
-                         num_predict=1)
 
-    time, response = model_req(payload=payload)
-    print(response)
-    if time: print(f'Time taken: {time}s')
+    # MESSAGE = "West Palm Beach, Florida"
+    # PROMPT = f"What is the average summer temperature in {MESSAGE}?"
+
+    location = "West Palm Beach, Florida"
+    PROMPT = "Think step by step to determine the average summer temperature in {location}. Consider what 'average summer temperature' means, how to define 'summer' for that location, where to find reliable data, and how to calculate the average. Explain your reasoning process in detail."
+
+    temperatures = [0.1, 0.5, 1.0]
+    num_CTX_values = [50, 500]
+    num_predict_values = [250, 1000]
+
+    print("temperature,num_CTX,num_predict")
+
+    for temp in temperatures:
+        for css in num_CTX_values:
+            for pred in num_predict_values:
+                payload = create_payload(
+                    target="ollama",
+                    model="llama3.2",
+                    prompt=PROMPT,
+                    temperature=temp,
+                    num_CTX=ctx,
+                    num_predict=pred
+                )
+                time, response = model_req(payload=payload)
+                print(f"{temp},{ctx},{pred}")
+                print(f"response: {response}")
+                print(f"time: {time}")
+                print("--------------------------------")
