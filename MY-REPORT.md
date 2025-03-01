@@ -52,7 +52,7 @@ How can different prompt engineering techniques optimize the quality, completene
 
 # Research Method
 
-Our research methodology involved a systematic comparison of four different prompt engineering techniques applied to the same use case - generating requirements for a Physics Discord Bot:
+The research methodology involved a systematic comparison of four different prompt engineering techniques applied to the same use case - generating requirements for a Physics Discord Bot:
 
 1.  Role-Assisted Prompting: Assigning the model the role of a requirements engineer to provide expert-level requirements.
     
